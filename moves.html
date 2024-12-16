@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Movimientos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/toggleTypes.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Buscar Movimientos</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/search">Volver</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="search-moves-container">
+            <!-- Panel de Búsqueda -->
+            <div class="search-panel">
+                <h2>Filtros de Búsqueda</h2>
+                <form method="POST" action="/search/moves">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" placeholder="Ej. Thunderbolt" value="{{ name or '' }}">
+
+                    <label>Tipos:</label>
+                        <div class="type-buttons">
+                            {% for tipo in ['Electric', 'Fire', 'Water', 'Grass', 'Ice', 'Fighting', 'Poison', 'Ground',
+                                            'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy', 'Normal'] %}
+                            <div class="type-button">
+                                <input type="radio" id="type-{{ tipo | lower }}" name="type" value="{{ tipo }}" hidden>
+                                <label for="type-{{ tipo | lower }}">
+                                    <img src="{{ url_for('static', filename='images/Icon_' + tipo + '.webp') }}" alt="{{ tipo }}">
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <label>Categoría:</label>
+                        <div class="category-buttons">
+                            <div class="type-button">
+                                <input type="radio" id="category-physical" name="category" value="物理" hidden>
+                                <label for="category-physical">
+                                    <img src="{{ url_for('static', filename='images/Clase_físico_XY.png') }}" alt="Físico">
+                                </label>
+                            </div>
+                            <div class="type-button">
+                                <input type="radio" id="category-special" name="category" value="特殊" hidden>
+                                <label for="category-special">
+                                    <img src="{{ url_for('static', filename='images/Clase_especial_XY.png') }}" alt="Especial">
+                                </label>
+                            </div>
+                            <div class="type-button">
+                                <input type="radio" id="category-status" name="category" value="变化" hidden>
+                                <label for="category-status">
+                                    <img src="{{ url_for('static', filename='images/Clase_estado_XY.png') }}" alt="Estado">
+                                </label>
+                            </div>
+                        </div>
+
+
+                    <label for="pp">PP (Usos):</label>
+                    <input type="number" id="pp" name="pp" placeholder="Ej. 15" value="{{ pp or '' }}">
+
+                    <label for="pp">Potencia:</label>
+                    <input type="number" id="power" name="power" placeholder="Ej. 60" value="{{ power or '' }}">
+
+                    <button type="submit" class="btn-search">Buscar</button>
+                </form>
+            </div>
+
+            <!-- Resultados -->
+            <div class="results-container">
+                <h2>Resultados</h2>
+                <div class="move-results">
+                    {% for move in moves %}
+                    <div class="move-entry">
+                        <!-- Contenedor de las Imágenes -->
+                        <div class="move-icons">
+                            <!-- Imagen del Tipo -->
+                            <img src="{{ url_for('static', filename='images/Icon_' + move['type'] + '.webp') }}" alt="{{ move['type'] }}">
+
+                            <!-- Imagen de la Categoría -->
+                            <img src="{% if move['category'] == '物理' %}
+                                        {{ url_for('static', filename='images/Clase_físico_XY.png') }}
+                                     {% elif move['category'] == '特殊' %}
+                                        {{ url_for('static', filename='images/Clase_especial_XY.png') }}
+                                     {% elif move['category'] == '变化' %}
+                                        {{ url_for('static', filename='images/Clase_estado_XY.png') }}
+                                     {% endif %}"
+                                 alt="{{ move['category'] }}">
+                        </div>
+
+                        <!-- Texto del Movimiento -->
+                        <div class="move-text">
+                            <p><strong>Nombre:</strong> {{ move['ename'] }}</p>
+                            <p><strong>Poder:</strong> {{ move['power'] or 'N/A' }}</p>
+                            <p><strong>PP:</strong> {{ move['pp'] }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Mi Pokédex</p>
+    </footer>
+</body>
+</html>

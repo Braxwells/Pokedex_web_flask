@@ -1,0 +1,41 @@
+<!-- templates/search.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opciones de Búsqueda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Elige qué deseas buscar</h1>
+        <nav>
+            <a href="/">Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="search-options-container">
+            <h2>Opciones de Búsqueda</h2>
+            <p>Selecciona una categoría para explorar en la Pokédex.</p>
+
+            <div class="options-images">
+                <a href="/search/pokemon" class="image-button">
+                    <img src="/static/images/pokemon_logo.png" alt="Pokémon">
+                </a>
+                <a href="/search/moves" class="image-button">
+                    <img src="/static/images/tipos_movimientos.png" alt="Movimientos">
+                </a>
+                <a href="/search/items" class="image-button">
+                    <img src="/static/images/pokeballs.webp" alt="Ítems">
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Mi Pokédex</p>
+    </footer>
+</body>
+</html>

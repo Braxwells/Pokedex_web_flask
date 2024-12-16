@@ -1,0 +1,62 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+    <h1>Pokédex</h1>
+    <nav>
+        {% if user %}
+            <span>Hola, {{ user }}</span>
+            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Iniciar sesión</a>
+        {% endif %}
+    </nav>
+</header>
+
+
+    <main>
+        <div class="home-container">
+            <h2>Explora el Mundo Pokémon</h2>
+            <p>Explora información detallada sobre tus Pokémon favoritos. Usa el buscador para encontrar Pokémon por nombre, tipo o estadísticas.</p>
+
+            <div class="home-buttons">
+                <a href="/search" class="btn">Buscar Pokémon</a>
+            </div>
+
+            <div class="featured-section">
+                <h3>Pokémon Destacados</h3>
+                <div class="featured-list">
+                    <div class="featured-pokemon">
+                        <img src="static/images/025.png" alt="Pikachu">
+                        <p>Pikachu</p>
+                    </div>
+                    <div class="featured-pokemon">
+                        <img src="static/images/001.png" alt="Bulbasaur">
+                        <p>Bulbasaur</p>
+                    </div>
+                    <div class="featured-pokemon">
+                        <img src="static/images/004.png" alt="Charmander">
+                        <p>Charmander</p>
+                    </div>
+                    <div class="featured-pokemon">
+                        <img src="static/images/007.png" alt="Squirtle">
+                        <p>Squirtle</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Mi Pokédex</p>
+    </footer>
+</body>
+</html>

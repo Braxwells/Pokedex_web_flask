@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Ítems</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Buscar Ítems</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/search">Volver</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="search-items-container">
+            <!-- Panel de Búsqueda -->
+            <div class="search-panel">
+                <h2>Filtros de Búsqueda</h2>
+                <form id="search-items-form" method="POST">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" placeholder="Ej. Potion" value="{{name or '' }}">
+
+                    <label for="item_id">ID:</label>
+                    <input type="number" id="item_id" name="item_id" placeholder="Ej. 1">
+
+                    <button type="submit" class="btn-search">Buscar</button>
+                </form>
+            </div>
+
+            <!-- Resultados -->
+            <div class="results-container">
+                <h2>Resultados</h2>
+                <div class="item-results">
+                    <!-- Los resultados se generarán aquí -->
+                    {% for item in items %}
+                    <div class="item-entry">
+                        <div>
+                            <p><strong>ID:</strong> {{ item['id'] }}</p>
+                            <p><strong>Nombre:</strong> {{ item['name']['english'] }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Mi Pokédex</p>
+    </footer>
+</body>
+</html>

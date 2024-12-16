@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pokemon['name']['english'] }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+     <header>
+        <h1>Pokédex</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/search/pokemon">Volver</a>
+        </nav>
+    </header>
+
+    <div class="pokemon-detail-container">
+        <!-- Nombre e ID -->
+        <div class="pokemon-header">
+            <h1>{{ pokemon['name']['english'] }}</h1>
+            <h2>#{{ pokemon['id'] }}</h2>
+        </div>
+
+        <!-- Imagen del Pokémon -->
+        <div class="pokemon-image-container">
+            <img src="{{ url_for('static', filename='images/' + '{:03d}'.format(pokemon['id']) + '.png') }}" alt="{{ pokemon['name']['english'] }}">
+        </div>
+
+        <!-- Tipos -->
+        <div class="pokemon-types-container">
+            {% for tipo in pokemon['type'] %}
+            <img src="{{ url_for('static', filename='images/Icon_' + tipo + '.webp') }}" alt="{{ tipo }}" class="type-icon">
+            {% endfor %}
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="pokemon-stats-container">
+            <h3>Estadísticas</h3>
+            <div class="stat-row">
+                <span>HP:</span>
+                <div class="stat-bar-container">
+                    <div class="stat-bar" style="width: {{ (pokemon['base']['HP'] / 252) * 100 }}%; background-color: orange;"></div>
+                </div>
+                <span>{{ pokemon['base']['HP'] }}</span>
+            </div>
+            <div class="stat-row">
+                <span>Attack:</span>
+                <div class="stat-bar-container">
+                    <div class="stat-bar" style="width: {{ (pokemon['base']['Attack'] / 252) * 100 }}%; background-color: green;"></div>
+                </div>
+                <span>{{ pokemon['base']['Attack'] }}</span>
+            </div>
+            <div class="stat-row">
+                <span>Defense:</span>
+                <div class="stat-bar-container">
+                    <div class="stat-bar" style="width: {{ (pokemon['base']['Defense'] / 252) * 100 }}%; background-color: yellow;"></div>
+                </div>
+                <span>{{ pokemon['base']['Defense'] }}</span>
+            </div>
+            <div class="stat-row">
+                <span>Sp. Attack:</span>
+                <div class="stat-bar-container">
+                    <div class="stat-bar" style="width: {{ (pokemon['base']['Sp. Attack'] / 252) * 100 }}%; background-color: lightgreen;"></div>
+                </div>
+                <span>{{ pokemon['base']['Sp. Attack'] }}</span>
+            </div>
+            <div class="stat-row">
+                <span>Sp. Defense:</span>
+                <div class="stat-bar-container">
+                    <div class="stat-bar" style="width: {{ (pokemon['base']['Sp. Defense'] / 252) * 100 }}%; background-color: lightblue;"></div>
+                </div>
+                <span>{{ pokemon['base']['Sp. Defense'] }}</span>
+            </div>
+            <div class="stat-row">
+                <span>Speed:</span>
+                <div class="stat-bar-container">
+                    <div class="stat-bar" style="width: {{ (pokemon['base']['Speed'] / 252) * 100 }}%; background-color: blue;"></div>
+                </div>
+                <span>{{ pokemon['base']['Speed'] }}</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 - Mi Pokédex</p>
+    </footer>
+</body>
+
+</html>

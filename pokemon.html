@@ -1,0 +1,187 @@
+<!-- templates/pokemon.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Pokémon</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/toggleTypes.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Buscar Pokémon</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/search">Volver</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="search-pokemon-container">
+            <!-- Panel de Búsqueda -->
+            <div class="search-panel">
+                <h2>Filtros de Búsqueda</h2>
+                <form  method="POST" action="/search/pokemon">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" placeholder="Ej. Pikachu" value="{{ name or '' }}">
+
+                    <label for="pokedex_number">Número de Pokédex:</label>
+                    <input type="number" id="pokedex_number" name="pokedex_number" placeholder="Ej. 25" value="{{ pokedex_number or '' }}">
+
+                    <label>Tipos:</label>
+                    <div class="type-buttons">
+
+                        <div class="type-button" data-type="Electric">
+                            <input type="checkbox" id="type-electric" name="type-electric" value="Electric" hidden>
+                            <img src="/static/images/Icon_Electric.webp" alt="Eléctrico">
+                        </div>
+
+                        <div class="type-button" data-type="Fire">
+                            <input type="checkbox" id="type-fire" name="type-fire" value="Fire" hidden>
+                            <img src="/static/images/Icon_Fire.webp" alt="Fuego">
+                        </div>
+
+                        <div class="type-button" data-type="Water">
+                            <input type="checkbox" id="type-water" name="type-water" value="Water" hidden>
+                            <img src="/static/images/Icon_Water.webp" alt="Agua">
+                        </div>
+
+                        <div class="type-button" data-type="Grass">
+                            <input type="checkbox" id="type-grass" name="type-grass" value="Grass" hidden>
+                            <img src="/static/images/Icon_Grass.webp" alt="Planta">
+                        </div>
+
+                        <div class="type-button" data-type="Bug">
+                            <input type="checkbox" id="type-bug" name="type-bug" value="Bug" hidden>
+                            <img src="/static/images/Icon_Bug.webp" alt="Bicho">
+                        </div>
+
+                        <div class="type-button" data-type="Dark">
+                            <input type="checkbox" id="type-dark" name="type-dark" value="Dark" hidden>
+                            <img src="/static/images/Icon_Dark.webp" alt="Siniestro">
+                        </div>
+
+                        <div class="type-button" data-type="Dragon">
+                            <input type="checkbox" id="type-dragon" name="type-dragon" value="Dragon" hidden>
+                            <img src="/static/images/Icon_Dragon.webp" alt="Dragón">
+                        </div>
+
+                        <div class="type-button" data-type="Fairy">
+                            <input type="checkbox" id="type-fairy" name="type-fairy" value="Fairy" hidden>
+                            <img src="/static/images/Icon_Fairy.webp" alt="Hada">
+                        </div>
+
+                        <div class="type-button" data-type="Fighting">
+                            <input type="checkbox" id="type-fighting" name="type-fighting" value="Fighting" hidden>
+                            <img src="/static/images/Icon_Fighting.webp" alt="Lucha">
+                        </div>
+
+                        <div class="type-button" data-type="Flying">
+                            <input type="checkbox" id="type-flying" name="type-flying" value="Flying" hidden>
+                            <img src="/static/images/Icon_Flying.webp" alt="Volador">
+                        </div>
+
+                        <div class="type-button" data-type="Ghost">
+                            <input type="checkbox" id="type-ghost" name="type-ghost" value="Ghost" hidden>
+                            <img src="/static/images/Icon_Ghost.webp" alt="Fantasma">
+                        </div>
+
+                        <div class="type-button" data-type="Ground">
+                            <input type="checkbox" id="type-ground" name="type-ground" value="Ground" hidden>
+                            <img src="/static/images/Icon_Ground.webp" alt="Tierra">
+                        </div>
+
+                        <div class="type-button" data-type="Ice">
+                            <input type="checkbox" id="type-ice" name="type-ice" value="Ice" hidden>
+                            <img src="/static/images/Icon_Ice.webp" alt="Hielo">
+                        </div>
+
+                        <div class="type-button" data-type="Normal">
+                            <input type="checkbox" id="type-normal" name="type-normal" value="Normal" hidden>
+                            <img src="/static/images/Icon_Normal.webp" alt="Normal">
+                        </div>
+
+                        <div class="type-button" data-type="Poison">
+                            <input type="checkbox" id="type-poison" name="type-poison" value="Poison" hidden>
+                            <img src="/static/images/Icon_Poison.webp" alt="Veneno">
+                        </div>
+
+                        <div class="type-button" data-type="Psychic">
+                            <input type="checkbox" id="type-psychic" name="type-psychic" value="Psychic" hidden>
+                            <img src="/static/images/Icon_Psychic.webp" alt="Psíquico">
+                        </div>
+
+                        <div class="type-button" data-type="Rock">
+                            <input type="checkbox" id="type-rock" name="type-rock" value="Rock" hidden>
+                            <img src="/static/images/Icon_Rock.webp" alt="Roca">
+                        </div>
+
+                        <div class="type-button" data-type="Steel">
+                            <input type="checkbox" id="type-steel" name="type-steel" value="Steel" hidden>
+                            <img src="/static/images/Icon_Steel.webp" alt="Acero">
+                        </div>
+                    </div>
+
+                    <label>Estadísticas:</label>
+                    <div class="stats-filters">
+                        <label for="hp">HP:</label>
+                        <input type="number" id="hp" name="hp" placeholder="Ej. 80">
+
+                        <label for="attack">Attack:</label>
+                        <input type="number" id="attack" name="attack" placeholder="Ej. 82">
+
+                        <label for="defense">Defense:</label>
+                        <input type="number" id="defense" name="defense" placeholder="Ej. 83">
+
+                        <label for="sp_attack">Sp. Attack:</label>
+                        <input type="number" id="sp_attack" name="sp_attack" placeholder="Ej. 100">
+
+                        <label for="sp_defense">Sp. Defense:</label>
+                        <input type="number" id="sp_defense" name="sp_defense" placeholder="Ej. 100">
+
+                        <label for="speed">Speed:</label>
+                        <input type="number" id="speed" name="speed" placeholder="Ej. 80">
+                    </div>
+
+                    <button type="submit" class="btn-search">Buscar</button>
+                </form>
+            </div>
+
+            <!-- Resultados -->
+            <div class="results-container">
+                <h2>Resultados</h2>
+                {% if results %}
+                    <div class="pokemon-results">
+                        {% for pokemon in results %}
+                            <a href="/pokemon/{{ pokemon['name']['english'] }}">
+                                <div class="pokemon-row">
+                                    <div class="pokemon-image">
+                                        <img src="{{ url_for('static', filename='sprites/' + '{:03d}'.format(pokemon['id']) + 'MS.png') }}" alt="{{ pokemon['name']['english'] }}">
+                                    </div>
+                                    <div class="pokemon-details">
+                                        <p><strong>ID:</strong> #{{ pokemon['id'] }}</p>
+                                        <p><strong>Nombre:</strong> {{ pokemon['name']['english'] }}</p>
+                                        <div class="pokemon-types">
+                                            <strong>Tipos:</strong>
+                                            {% for tipo in pokemon['type'] %}
+                                                <img src="{{ url_for('static', filename='images/Icon_' + tipo + '.webp') }}" alt="{{ tipo }}" class="type-icon">
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No se encontraron resultados.</p>
+                {% endif %}
+            </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Mi Pokédex</p>
+    </footer>
+</body>
+</html>
